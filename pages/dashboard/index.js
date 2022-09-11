@@ -1,9 +1,45 @@
-import React from 'react'
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 
 const Dashboard = () => {
-  return (
-    <div>Dashboard</div>
-  )
-}
+  const router = useRouter();
+  const [cookies] = useCookies(["accessToken"]);
+  const [loaded, setLoaded] = useState(false);
+  const [gameList, setGameList] = useState([]);
 
-export default Dashboard
+  useEffect(() => {
+    if (!cookies.accessToken) {
+      router.push("/login");
+    }
+    _getAllGames();
+  }, []);
+
+  const _getAllGames = () => {
+    axios
+      .get("https://rps-game-be.herokuapp.com/game", {
+        headers: { Authorization: "Bearer " + cookies.accessToken },
+      })
+      .then((res) => {
+        setGameList(res.data);
+        setLoaded(true);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  return loaded ? (
+    <div>
+      <div>
+        <button>
+          <Link href="/game/create">Create Game Room</Link>
+        </button>
+      </div>
+    </div>
+  ) : (
+    <div>Loading ...</div>
+  );
+};
+
+export default Dashboard;

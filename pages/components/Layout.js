@@ -8,7 +8,7 @@ export default function Layout({ children }) {
         <ul className={styles.ul}>
           <li className={styles.li}>
             <Link href="/register">
-              <a class="active">Register</a>
+              <a>Register</a>
             </Link>
           </li>
           <li className={styles.li}>
