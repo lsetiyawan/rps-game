@@ -36,6 +36,26 @@ const Dashboard = () => {
           <Link href="/game/create">Create Game Room</Link>
         </button>
       </div>
+      <div style={{ display: "flex" }}>
+        {gameList.map((game) => {
+          return (
+            <div
+              style={{
+                height: "100px",
+                width: "100px",
+                backgroundColor: "lightyellow",
+                color: "black",
+                margin: "10px",
+                padding: "10px",
+              }}
+            >
+              <Link key={game.id} href={`/game/${game.id}`}>
+                {game.room}
+              </Link>
+            </div>
+          );
+        })}
+      </div>
     </div>
   ) : (
     <div>Loading ...</div>
