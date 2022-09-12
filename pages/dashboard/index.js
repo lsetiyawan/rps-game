@@ -39,20 +39,35 @@ const Dashboard = () => {
       <div style={{ display: "flex" }}>
         {gameList.map((game) => {
           return (
-            <div
-              style={{
-                height: "100px",
-                width: "100px",
-                backgroundColor: "lightyellow",
-                color: "black",
-                margin: "10px",
-                padding: "10px",
-              }}
-            >
-              <Link key={game.id} href={`/game/${game.id}`}>
-                {game.room}
-              </Link>
-            </div>
+            <Link key={game.id} href={`/game/${game.id}`}>
+              <div
+                style={{
+                  height: "200px",
+                  width: "200px",
+                  backgroundColor: "lightyellow",
+                  color: "black",
+                  margin: "10px",
+                  padding: "10px",
+                  cursor: "pointer",
+                }}
+              >
+                <div
+                  style={{
+                    margin: "20px",
+                    textAlign: "center",
+                  }}
+                >
+                  {game.room}
+                </div>
+                <div>
+                  {game.end
+                    ? game.theWinner?.name
+                      ? `The winner is ${game.theWinner?.name}`
+                      : `It's a draw!`
+                    : "The fight is ongoing"}
+                </div>
+              </div>
+            </Link>
           );
         })}
       </div>
